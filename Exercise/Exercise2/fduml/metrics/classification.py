@@ -29,6 +29,6 @@ def accuracy_score(y_true, y_pred):
     # Calculate the accuracy.                                               #
     #########################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
+    acc = np.sum(y_true == y_pred) / len(y_true)
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
     return acc
