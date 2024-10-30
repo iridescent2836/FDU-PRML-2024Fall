@@ -64,6 +64,7 @@ def svm_loss_naive(W, X, y, reg):
     return loss, dW
 
 
+
 def svm_loss_vectorized(W, X, y, reg):
     """
     Structured SVM loss function, vectorized implementation.
@@ -80,19 +81,6 @@ def svm_loss_vectorized(W, X, y, reg):
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-    num_train = X.shape[0]
-    
-    # Compute scores and the correct class scores
-    scores = X.dot(W)
-    correct_class_scores = scores[np.arange(num_train), y].reshape(-1, 1) # shape (N, 1)
-    
-    # Compute margins
-    margins = np.maximum(0, scores - correct_class_scores + 1) # shape (N, C)
-    margins[np.arange(num_train), y] = 0 # don't include the correct class in the loss
-
-    #compute loss
-    loss = np.sum(margins) / num_train
-    loss += reg * np.sum(W * W)
     
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -106,15 +94,8 @@ def svm_loss_vectorized(W, X, y, reg):
     # loss.                                                                     #
     #############################################################################
     # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-    
-    # Compute the gradient
-    margins[margins > 0] = 1
-    valid_margins_count = np.sum(margins, axis=1)
-    margins[np.arange(num_train), y] -= valid_margins_count
 
-    dW = X.T.dot(margins) / num_train
-    dW += 2 * reg * W  # Regularization gradient
-    
+
     # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
     return loss, dW
